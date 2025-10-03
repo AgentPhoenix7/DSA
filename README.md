@@ -1,7 +1,22 @@
 # 🧑‍💻 Data Structures & Algorithms (DSA) Assignments – CSE, Jadavpur University
 
+![Language](https://img.shields.io/badge/language-C-blue.svg)
+![Repo Size](https://img.shields.io/github/repo-size/AgentPhoenix7/DSA?color=purple)
+![Last Commit](https://img.shields.io/github/last-commit/AgentPhoenix7/DSA?color=orange)
+![License](https://img.shields.io/badge/license-MIT-green)
+
 This repository contains all my **2nd year CSE assignments** for the **Data Structures & Algorithms** course, implemented in **C**.  
 It serves as both a learning archive and a showcase of my problem-solving journey.
+
+---
+
+## 📑 Table of Contents
+
+- [📂 Repository Structure](#-repository-structure)  
+- [🚀 Quick Navigation](#-quick-navigation)  
+- [⚙️ How to Compile & Run](#️-how-to-compile--run)  
+- [📊 Progress Tracker](#-progress-tracker)  
+- [📈 Future Scope](#-future-scope)  
 
 ---
 
@@ -9,27 +24,21 @@ It serves as both a learning archive and a showcase of my problem-solving journe
 
 ```
 DSA/
-├── Assignment-1/
-│   ├── solution1.c
-│   ├── solution2.c
-│   └── README.md
-├── Assignment-2/
-│   └── ...
-├── Assignment-3/
-│   └── ...
-├── Assignment-4/
-│   └── ...
-└── README.md   (this file)
+├── Assignment-1/   # Arrays – Insert/Delete, Middle, nth from End
+├── Assignment-2/   # Linked Lists – Insert/Delete, Middle, nth from End
+├── Assignment-3/   # Stacks, Queues, Sparse Matrix
+├── Assignment-4/   # Stack & Queue Applications
+└── README.md
 ```
 
 ---
 
 ## 🚀 Quick Navigation
 
-- [Assignment 1](./Assignment-1/README.md)
-- [Assignment 2](./Assignment-2/README.md)
-- [Assignment 3](./Assignment-3/README.md)
-- [Assignment 4](./Assignment-4/README.md)
+- [Assignment 1 – Arrays](./Assignment-1/README.md)  
+- [Assignment 2 – Linked Lists](./Assignment-2/README.md)  
+- [Assignment 3 – Stack, Queue, Sparse Matrix](./Assignment-3/README.md)  
+- [Assignment 4 – Stack & Queue Applications](./Assignment-4/README.md)  
 
 ---
 
@@ -39,29 +48,31 @@ Each program is written in **C** and can be compiled using `gcc` or any C compil
 
 ```bash
 # Example: Compile a solution
-gcc solution1.c -o solution1
+gcc p01.c -o p01
 
 # Run the program
-./solution1
+./p01
 ```
 
 ---
 
 ## 📊 Progress Tracker
 
-* [x] Assignment 1
-* [x] Assignment 2
-* [x] Assignment 3
-* [x] Assignment 4
+| Assignment   | Status      | Topics Covered                                                                   |
+| ------------ | ----------- | -------------------------------------------------------------------------------- |
+| Assignment 1 | ✅ Completed | Arrays – Input, Insert, Delete, Middle, nth from End                             |
+| Assignment 2 | ✅ Completed | Linked Lists – Insert/Delete, Middle, nth from End                               |
+| Assignment 3 | ✅ Completed | Stack (Array + Linked List), Queue, Sparse Matrix Ops                            |
+| Assignment 4 | ✅ Completed | Prime Divisors, Balanced Parentheses, Polish Notation, Queue-based String Checks |
 
 ---
 
 ## 📈 Future Scope
 
 * Add more **detailed explanations** for each solution
-* Include **test cases & outputs**
+* Include **unit tests & outputs**
 * Extend to **C++/Python implementations** for practice
-* Explore **advanced DSA topics** (Trees, Graphs, DP)
+* Explore **advanced DSA topics** (Trees, Graphs, DP, Hashing)
 
 ---
 
