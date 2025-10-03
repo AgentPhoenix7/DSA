@@ -1,9 +1,9 @@
 # 🧑‍💻 Data Structures & Algorithms (DSA) Assignments – CSE, Jadavpur University
 
-![Language](https://img.shields.io/badge/language-C-blue.svg)
-![Repo Size](https://img.shields.io/github/repo-size/AgentPhoenix7/DSA?color=purple)
-![Last Commit](https://img.shields.io/github/last-commit/AgentPhoenix7/DSA?color=orange)
-![License](https://img.shields.io/badge/license-MIT-green)
+![GitHub top language](https://img.shields.io/github/languages/top/AgentPhoenix7/DSA)
+![GitHub repo size](https://img.shields.io/github/repo-size/AgentPhoenix7/DSA?color=purple)
+![GitHub last commit](https://img.shields.io/github/last-commit/AgentPhoenix7/DSA?color=orange)
+![GitHub License](https://img.shields.io/github/license/AgentPhoenix7/DSA)
 
 This repository contains all my **2nd year CSE assignments** for the **Data Structures & Algorithms** course, implemented in **C**.  
 It serves as both a learning archive and a showcase of my problem-solving journey.
