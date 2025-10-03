@@ -1,0 +1,20 @@
+# Only track C source files, text files, dat files, and README
+# Ignore everything else and then re-allow the specific patterns we want
+
+# Ignore all files
+*
+
+# But do not ignore directories — this lets us re-include files inside them
+!*/
+
+# Allow C source files, text files and dat files (anywhere in the tree)
+!*.c
+!*.txt
+!*.dat
+
+# Allow README files (exact name or with an extension)
+!README
+!README.*
+
+# Keep the .gitignore itself tracked
+!.gitignore
