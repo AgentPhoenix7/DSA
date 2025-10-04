@@ -6,50 +6,50 @@ typedef struct Node {
     struct Node *next;
 } Node;
 
-Node* createNode(int v) {
-    Node *n = (Node*)malloc(sizeof(Node));
-    if (!n) {
+Node* createNode(int value) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    if (!newNode) {
         perror("malloc");
         exit(1);
     }
-    n->data = v;
-    n->next = NULL;
-    return n;
+    newNode->data = value;
+    newNode->next = NULL;
+    return newNode;
 }
 
-void createLinkedList(Node **head, int v) {
-    Node *n = createNode(v);
+void createLinkedList(Node** head, int value) {
+    Node* newNode = createNode(value);
     if (*head == NULL) {
-        *head = n;
+        *head = newNode;
         return;
     }
-    Node *t = *head;
-    while (t->next) {
-        t = t->next;
+    Node* temp = *head;
+    while (temp->next) {
+        temp = temp->next;
     }
-    t->next = n;
+    temp->next = newNode;
 }
 
 void display(Node* head) {
-    Node *t = head;
+    Node* temp = head;
     printf("Linked List: ");
-    while (t != NULL) {
-        printf("%d", t->data);
-        if (t->next != NULL) {
+    while (temp != NULL) {
+        printf("%d", temp->data);
+        if (temp->next != NULL) {
             printf(" ");
         }
-        t = t->next;
+        temp = temp->next;
     }
     printf("\n");
 }
 
 // Insert after given data
-int insertAfter(Node *head, int target, int v) {
-    for (Node *t = head; t; t = t->next) {
-        if (t->data == target) {
-            Node *n = createNode(v);
-            n->next = t->next;
-            t->next = n;
+int insertAfter(Node* head, int key, int value) {
+    for (Node* temp = head; temp; temp = temp->next) {
+        if (temp->data == key) {
+            Node* newNode = createNode(value);
+            newNode->next = temp->next;
+            temp->next = newNode;
             return 1;
         }
     }
@@ -57,21 +57,21 @@ int insertAfter(Node *head, int target, int v) {
 }
 
 // Insert before given data
-int insertBefore(Node **head, int target, int v) {
+int insertBefore(Node** head, int key, int value) {
     if (*head == NULL) {
         return 0;
     }
-    if ((*head)->data == target) {
-        Node *n = createNode(v);
-        n->next = *head;
-        *head = n;
+    if ((*head)->data == key) {
+        Node* newNode = createNode(value);
+        newNode->next = *head;
+        *head = newNode;
         return 1;
     }
-    for (Node *t = *head; t->next; t = t->next) {
-        if (t->next->data == target) {
-            Node *n = createNode(v);
-            n->next = t->next;
-            t->next = n;
+    for (Node* temp = *head; temp->next; temp = temp->next) {
+        if (temp->next->data == key) {
+            Node* newNode = createNode(value);
+            newNode->next = temp->next;
+            temp->next = newNode;
             return 1;
         }
     }
@@ -79,20 +79,20 @@ int insertBefore(Node **head, int target, int v) {
 }
 
 // Delete a given data (First occurrence)
-int deleteData(Node **head, int target) {
+int deleteData(Node** head, int key) {
     if (*head == NULL) {
         return 0;
     }
-    if ((*head)->data == target) {
-        Node *del = *head;
+    if ((*head)->data == key) {
+        Node* del = *head;
         *head = (*head)->next;
         free(del);
         return 1;
     }
-    for (Node *t= *head; t->next; t= t->next) {
-        if (t->next->data == target) {
-            Node *del = t->next;
-            t->next = del->next;
+    for (Node* temp = *head; temp->next; temp = temp->next) {
+        if (temp->next->data == key) {
+            Node* del = temp->next;
+            temp->next = del->next;
             free(del);
             return 1;
         }
@@ -101,37 +101,37 @@ int deleteData(Node **head, int target) {
 }
 
 // Insert at n-th position (1-based)
-int insertAtPosition(Node **head, int pos, int v) {
+int insertAtPosition(Node** head, int pos, int value) {
     if (pos < 1) {
         return -1;
     }
     if (pos == 1) {
-        Node *n = createNode(v);
-        n->next = *head;
-        *head = n;
+        Node* newNode = createNode(value);
+        newNode->next = *head;
+        *head = newNode;
         return 1;
     }
-    Node *t = *head;
-    for (int i = 1; t && i < pos - 1; i++) {
-        t = t->next;
+    Node* temp = *head;
+    for (int i = 1; temp && i < pos - 1; i++) {
+        temp = temp->next;
     }
-    if (!t) {
+    if (!temp) {
         return 0;
     }
-    Node *n = createNode(v);
-    n->next = t->next;
-    t->next = n;
+    Node* newNode = createNode(value);
+    newNode->next = temp->next;
+    temp->next = newNode;
     return 1;
 }
 
 // Find middle
-void findMiddle (Node *head) {
+void findMiddle (Node* head) {
     if (head == NULL) {
         printf("List is empty.\n");
         return;
     }
 
-    Node *slow = head, *fast = head, *prev = NULL;
+    Node* slow = head, *fast = head, *prev = NULL;
 
     while (fast && fast->next) {
         fast = fast->next->next;
@@ -147,8 +147,9 @@ void findMiddle (Node *head) {
 }
 
 // Find n-th from end
-int getNthFromEnd(Node *head, int n, int *out) {
-    Node *a = head, *b = head;
+int getNthFromEnd(Node* head, int n, int* out) {
+    Node* a = head;
+    Node* b = head;
     for (int i = 0; i < n; i++) {
         if (!a) {
             return 0;
@@ -164,18 +165,18 @@ int getNthFromEnd(Node *head, int n, int *out) {
 }
 
 // Cleanup
-void clearList(Node **head) {
-    Node *t = *head;
-    while (t) {
-        Node *n = t->next;
-        free(t);
-        t = n;
+void clearList(Node** head) {
+    Node* temp = *head;
+    while (temp) {
+        Node* n = temp->next;
+        free(temp);
+        temp = n;
     }
     *head = NULL;
 }
 
 int main() {
-    Node *head = NULL;
+    Node* head = NULL;
     int choice, val, x, y, pos, n;
     while (1) {
         printf("\nMenu:\n");
