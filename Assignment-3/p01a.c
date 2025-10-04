@@ -1,30 +1,28 @@
 #include <stdio.h>
-#include <stdlib.h>
-
 #define MAX 100000
 
-typedef struct {
+typedef struct Stack {
     int arr[MAX];
     int top;
 } Stack;
 
 // Initialize Stack
-void initStack(Stack *s) {
+void initStack(Stack* s) {
     s->top = -1;
 }
 
 // Check if stack is full
-int isFull(Stack *s) {
+int isFull(Stack* s) {
     return s->top == MAX - 1;
 }
 
 // Check if stack is empty
-int isEmpty(Stack *s) {
+int isEmpty(Stack* s) {
     return s->top == -1;
 }
 
 // PUSH operation
-void PUSH(Stack *s, int value) {
+void PUSH(Stack* s, int value) {
     if (isFull(s)) {
         printf("Stack overflow. Cannot push %d.\n", value);
         return;
@@ -34,7 +32,7 @@ void PUSH(Stack *s, int value) {
 }
 
 // POP operation
-int POP(Stack *s) {
+int POP(Stack* s) {
     if (isEmpty(s)) {
         printf("Stack underflow. Nothing to pop.\n");
         return -1;
@@ -43,7 +41,7 @@ int POP(Stack *s) {
 }
 
 // Display stack
-void display(Stack *s) {
+void display(Stack* s) {
     if (isEmpty(s)) {
         printf("Stack is empty.\n");
         return;
