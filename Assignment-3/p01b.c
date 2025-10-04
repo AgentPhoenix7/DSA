@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX 100000
-
 typedef struct Node {
     int data;
     struct Node *next;
@@ -10,7 +8,7 @@ typedef struct Node {
 
 // Create new node
 Node* createNode(int value) {
-    Node *newNode = (Node*)malloc(sizeof(Node));
+    Node* newNode = (Node*)malloc(sizeof(Node));
     if (!newNode) {
         printf("Memory allocation failed.\n");
         exit(1);
@@ -21,26 +19,26 @@ Node* createNode(int value) {
 }
 
 // Check if stack is empty
-int isEmpty(Node *top) {
+int isEmpty(Node* top) {
     return top == NULL;
 }
 
 // PUSH operation
-void PUSH(Node **top, int value) {
-    Node *newNode = createNode(value);
+void PUSH(Node** top, int value) {
+    Node* newNode = createNode(value);
     newNode->next = *top;
     *top = newNode;
     printf("Pushed %d onto the stack.\n", value);
 }
 
 // POP operation
-int POP(Node **top) {
+int POP(Node** top) {
     if (isEmpty(*top)) {
         printf("Stack underflow. Nothing to pop.\n");
         return -1;
     }
 
-    Node *temp = *top;
+    Node* temp = *top;
     int poppedValue = temp->data;
     *top = (*top)->next;
     free(temp);
@@ -48,13 +46,13 @@ int POP(Node **top) {
 }
 
 // Display stack
-void display(Node *top) {
+void display(Node* top) {
     if (isEmpty(top)) {
         printf("Stack is empty.\n");
         return;
     }
     printf("Current Stack: ");
-    Node *temp = top;
+    Node* temp = top;
     while (temp) {
         printf("%d ", temp->data);
         temp = temp->next;
@@ -64,7 +62,7 @@ void display(Node *top) {
 
 // Main function
 int main() {
-    Node *top = NULL;
+    Node* top = NULL;
     int choice, value;
 
     while (1) {
