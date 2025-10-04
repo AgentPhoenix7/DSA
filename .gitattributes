@@ -1,0 +1,55 @@
+# ---------------------------------------------------------
+# Enforce consistent line endings and file handling
+# ---------------------------------------------------------
+
+# Default behavior: treat all text files as text, normalize to LF
+* text eol=lf
+
+# ---------------------------------------------------------
+# Explicit rules for common file types
+# ---------------------------------------------------------
+
+# Source code (always LF)
+*.c     text eol=lf
+*.cpp   text eol=lf
+*.h     text eol=lf
+*.py    text eol=lf
+*.js    text eol=lf
+*.ts    text eol=lf
+*.java  text eol=lf
+*.go    text eol=lf
+*.rs    text eol=lf
+*.sh    text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf
+*.json  text eol=lf
+*.html  text eol=lf
+*.css   text eol=lf
+*.md    text eol=lf
+*.txt   text eol=lf
+
+# ---------------------------------------------------------
+# Binary files (never modify line endings)
+# ---------------------------------------------------------
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.pdf   binary
+*.zip   binary
+*.tar   binary
+*.gz    binary
+*.7z    binary
+*.exe   binary
+*.dll   binary
+*.so    binary
+*.mp3   binary
+*.mp4   binary
+*.mov   binary
+
+# ---------------------------------------------------------
+# Git-specific files
+# ---------------------------------------------------------
+.gitattributes text eol=lf
+.gitignore     text eol=lf
