@@ -6,30 +6,47 @@ typedef struct Node {
     struct Node* next;
 } Node;
 
-Node* createNode(int data) {
+typedef struct Stack {
+    Node* top;
+} Stack;
+
+// Function to create a new node
+Node* createLinkedList(int value) {
     Node* newNode = (Node*)malloc(sizeof(Node));
-    newNode->data = data;
+    if (!newNode) {
+        printf("Memory allocation failed\n");
+        exit(1);
+    }
+    newNode->data = value;
     newNode->next = NULL;
     return newNode;
 }
 
-void push(Node** top, int data) {
-    Node* newNode = createNode(data);
-    newNode->next = *top;
-    *top = newNode;
+// Initialize the stack
+void initStack(Stack* stack) {
+    stack->top = NULL;
 }
 
-int pop(Node** top) {
-    if (*top == NULL) {
-        return -1;
+// Push operation
+void push(Stack* stack, int value) {
+    Node* newNode = createLinkedList(value);
+    newNode->next = stack->top;
+    stack->top = newNode;
+}
+
+// Pop operation
+int pop(Stack* stack) {
+    if (stack->top == NULL) {
+        return -1; // Stack underflow
     }
-    Node* temp = *top;
-    int popped = temp->data;
-    *top = (*top)->next;
+    Node* temp = stack->top;
+    int poppedValue = temp->data;
+    stack->top = temp->next;
     free(temp);
-    return popped;
+    return poppedValue;
 }
 
+// Check if a number is prime
 int isPrime(int num) {
     if (num < 2) {
         return 0;
@@ -44,22 +61,27 @@ int isPrime(int num) {
 
 int main() {
     int num;
+    Stack stack;       // Create a stack structure
+    initStack(&stack); // Initialize it
+
     printf("Enter an integer: ");
     scanf("%d", &num);
 
     if (num < 2) {
         printf("No prime divisors for %d\n", num);
+        return 0;
     }
 
-    Node* stack = NULL;
+    // Push prime divisors in descending order
     for (int i = num; i >= 2; i--) {
         if (num % i == 0 && isPrime(i)) {
             push(&stack, i);
         }
     }
 
-    printf("Prime divisors: ");
-    while (stack != NULL) {
+    // Pop and print in ascending order
+    printf("Prime divisors in ascending order: ");
+    while (stack.top != NULL) {
         printf("%d ", pop(&stack));
     }
     printf("\n");
