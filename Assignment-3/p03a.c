@@ -2,7 +2,7 @@
 
 void convertToCompact(int rows, int cols, int matrix[rows][cols]) {
     int compact[rows * cols][3];
-    int k = 0;
+    int k = 0; // Counter for non-zero elements in compact matrix
 
     // Create compact matrix
     for (int i = 0; i < rows; i++) {
