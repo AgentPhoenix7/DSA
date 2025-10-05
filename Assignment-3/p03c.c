@@ -69,6 +69,26 @@ int multiplyCompactMatrices(Term* a, int sizeA, Term* b, int sizeB, Term** resul
     return k;
 }
 
+// Function to sort compact matrix by row, then by column
+void sortCompactMatrix(Term *arr, int size)
+{
+    for (int i = 0; i < size - 1; i++)
+    {
+        for (int j = i + 1; j < size; j++)
+        {
+            if (arr[i].row > arr[j].row ||
+                (arr[i].row == arr[j].row && arr[i].col > arr[j].col))
+            {
+
+                // Swap the two terms
+                Term temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+}
+
 // Function to print compact matrix
 void printCompactMatrix(Term* compact, int size) {
     printf("Row\tCol\tValue\n");
@@ -86,7 +106,7 @@ int main() {
     printf("Enter number of columns of Matrix A: ");
     scanf("%d", &c1);
     
-    printf("Enter number of rows of Matrix B: ");
+    printf("\nEnter number of rows of Matrix B: ");
     scanf("%d", &r2);
     printf("Enter number of columns of Matrix B: ");
     scanf("%d", &c2);
@@ -102,7 +122,7 @@ int main() {
         A[i] = (int*)malloc(c1 * sizeof(int));
     }
 
-    printf("Enter elements of Matrix A:\n");
+    printf("\nEnter elements of Matrix A:\n");
     for (int i = 0; i < r1; i++) {
         for (int j = 0; j < c1; j++) {
             printf("Element[%d][%d]: ", i, j);  // Zero index
@@ -116,7 +136,7 @@ int main() {
         B[i] = (int*)malloc(c2 * sizeof(int));
     }
 
-    printf("Enter elements of Matrix B:\n");
+    printf("\nEnter elements of Matrix B:\n");
     for (int i = 0; i < r2; i++) {
         for (int j = 0; j < c2; j++) {
             printf("Element[%d][%d]: ", i, j);  // Zero index
@@ -131,6 +151,11 @@ int main() {
 
     // Multiply
     int resultSize = multiplyCompactMatrices(compactA, sizeA, compactB, sizeB, &result);
+
+    // Sort result for proper row/column order
+    if (resultSize > 1) {
+        sortCompactMatrix(result, resultSize);
+    }
 
     // Output result
     printf("\nResultant Compact Matrix (A X B):\n");
