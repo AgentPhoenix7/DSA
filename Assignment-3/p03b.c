@@ -93,11 +93,11 @@ int main() {
     scanf("%d", &cols);
 
     // Allocate matrix 1
-    int **matrix1 = (int **)malloc(rows * sizeof(int *));
-    int **matrix2 = (int **)malloc(rows * sizeof(int *));
+    int** matrix1 = (int**)malloc(rows * sizeof(int*));
+    int** matrix2 = (int**)malloc(rows * sizeof(int*));
     for (int i = 0; i < rows; i++) {
-        matrix1[i] = (int *)malloc(cols * sizeof(int));
-        matrix2[i] = (int *)malloc(cols * sizeof(int));
+        matrix1[i] = (int*)malloc(cols * sizeof(int));
+        matrix2[i] = (int*)malloc(cols * sizeof(int));
     }
 
     printf("\nEnter elements of first matrix:\n");
