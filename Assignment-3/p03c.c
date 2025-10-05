@@ -70,16 +70,10 @@ int multiplyCompactMatrices(Term* a, int sizeA, Term* b, int sizeB, Term** resul
 }
 
 // Function to sort compact matrix by row, then by column
-void sortCompactMatrix(Term *arr, int size)
-{
-    for (int i = 0; i < size - 1; i++)
-    {
-        for (int j = i + 1; j < size; j++)
-        {
-            if (arr[i].row > arr[j].row ||
-                (arr[i].row == arr[j].row && arr[i].col > arr[j].col))
-            {
-
+void sortCompactMatrix(Term *arr, int size) {
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = i + 1; j < size; j++) {
+            if (arr[i].row > arr[j].row || (arr[i].row == arr[j].row && arr[i].col > arr[j].col)) {
                 // Swap the two terms
                 Term temp = arr[i];
                 arr[i] = arr[j];
