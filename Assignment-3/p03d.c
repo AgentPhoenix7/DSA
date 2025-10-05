@@ -6,7 +6,7 @@ typedef struct {
 } Term;
 
 // Convert a 2D matrix to compact form
-int convertToCompact(int rows, int cols, int **matrix, Term **compact) {
+int convertToCompact(int rows, int cols, int** matrix, Term** compact) {
     int count = 0;
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
@@ -16,7 +16,7 @@ int convertToCompact(int rows, int cols, int **matrix, Term **compact) {
         }
     }
 
-    *compact = (Term *)malloc(count * sizeof(Term));
+    *compact = (Term*)malloc(count * sizeof(Term));
     if (*compact == NULL) {
         printf("Memory allocation failed!\n");
         exit(1);
@@ -34,11 +34,25 @@ int convertToCompact(int rows, int cols, int **matrix, Term **compact) {
     return k;
 }
 
+// Function to sort compact matrix by row, then by column
+void sortCompactMatrix(Term *arr, int size) {
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = i + 1; j < size; j++) {
+            if (arr[i].row > arr[j].row ||
+                (arr[i].row == arr[j].row && arr[i].col > arr[j].col)) {
+                Term temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+}
+
 // Add two compact matrices
-int addCompactMatrices(Term *a, int sizeA, Term *b, int sizeB, Term **result) {
+int addCompactMatrices(Term* a, int sizeA, Term* b, int sizeB, Term** result) {
     int i = 0, j = 0, k = 0;
 
-    *result = (Term *)malloc((sizeA + sizeB) * sizeof(Term));
+    *result = (Term*)malloc((sizeA + sizeB) * sizeof(Term));
     if (*result == NULL) {
         printf("Memory allocation failed!\n");
         exit(1);
@@ -52,7 +66,8 @@ int addCompactMatrices(Term *a, int sizeA, Term *b, int sizeB, Term **result) {
             }
             i++;
             j++;
-        } else if (a[i].row < b[j].row || (a[i].row == b[j].row && a[i].col < b[j].col)) {
+        } else if (a[i].row < b[j].row ||
+            (a[i].row == b[j].row && a[i].col < b[j].col)) {
             (*result)[k++] = a[i++];
         } else {
             (*result)[k++] = b[j++];
@@ -66,11 +81,15 @@ int addCompactMatrices(Term *a, int sizeA, Term *b, int sizeB, Term **result) {
         (*result)[k++] = b[j++];
     }
 
+    // Sort result (in case inputs were not sorted)
+    if (k > 1) {
+        sortCompactMatrix(*result, k);
+    }
     return k;
 }
 
 // Multiply two compact matrices
-int multiplyCompactMatrices(Term *a, int sizeA, Term *b, int sizeB, Term **result) {
+int multiplyCompactMatrices(Term* a, int sizeA, Term* b, int sizeB, Term** result) {
     int k = 0;
     *result = NULL;
 
@@ -92,27 +111,34 @@ int multiplyCompactMatrices(Term *a, int sizeA, Term *b, int sizeB, Term **resul
                 }
 
                 if (!found) {
-                    *result = (Term *)realloc(*result, (k + 1) * sizeof(Term));
+                    *result = (Term*)realloc(*result, (k + 1) * sizeof(Term));
                     (*result)[k++] = (Term){r, c, val};
                 }
             }
         }
     }
 
+    // Sort result by row and column
+    if (k > 1) {
+        sortCompactMatrix(*result, k);
+    }
     return k;
 }
 
 // Print compact matrix
 void printCompactMatrix(Term *compact, int size) {
     printf("Row\tColumn\tValue\n");
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < size; i++) {
         printf("%d\t%d\t%d\n", compact[i].row, compact[i].col, compact[i].value);
+    }
 }
 
+// Allocate and free helpers
 int **allocateMatrix(int rows, int cols) {
     int **matrix = (int **)malloc(rows * sizeof(int *));
-    for (int i = 0; i < rows; i++)
+    for (int i = 0; i < rows; i++) {
         matrix[i] = (int *)malloc(cols * sizeof(int));
+    }
     return matrix;
 }
 
@@ -128,10 +154,13 @@ int main() {
     int r1, c1, r2, c2;
 
     // Read Matrix A
-    FILE *fileA = fopen("matrix1.txt", "r");
-    if (!fileA) { perror("Error opening file matrix1.txt"); return 1; }
+    FILE* fileA = fopen("matrix1.txt", "r");
+    if (!fileA) {
+        perror("Error opening file matrix1.txt");
+        return 1;
+    }
     fscanf(fileA, "%d %d", &r1, &c1);
-    int **A = allocateMatrix(r1, c1);
+    int** A = allocateMatrix(r1, c1);
     for (int i = 0; i < r1; i++) {
         for (int j = 0; j < c1; j++) {
             fscanf(fileA, "%d", &A[i][j]);
@@ -139,18 +168,18 @@ int main() {
     }
     fclose(fileA);
 
-    // Convert Matrix A to compact
-    Term *compactA;
+    // Convert A to compact
+    Term* compactA;
     int sizeA = convertToCompact(r1, c1, A, &compactA);
 
     // Read Matrix B
-    FILE *fileB = fopen("matrix2.txt", "r");
+    FILE* fileB = fopen("matrix2.txt", "r");
     if (!fileB) {
         perror("Error opening file matrix2.txt");
         return 1;
     }
     fscanf(fileB, "%d %d", &r2, &c2);
-    int **B = allocateMatrix(r2, c2);
+    int** B = allocateMatrix(r2, c2);
     for (int i = 0; i < r2; i++) {
         for (int j = 0; j < c2; j++) {
             fscanf(fileB, "%d", &B[i][j]);
@@ -158,13 +187,13 @@ int main() {
     }
     fclose(fileB);
 
-    // Convert Matrix B to compact
-    Term *compactB;
+    // Convert B to compact
+    Term* compactB;
     int sizeB = convertToCompact(r2, c2, B, &compactB);
 
-    // Attempt addition if dimensions match
+    // Addition (if compatible)
     if (r1 == r2 && c1 == c2) {
-        Term *sumResult;
+        Term* sumResult;
         int sumSize = addCompactMatrices(compactA, sizeA, compactB, sizeB, &sumResult);
         printf("\nResultant Compact Matrix (A + B):\n");
         printCompactMatrix(sumResult, sumSize);
@@ -173,9 +202,9 @@ int main() {
         printf("\nAddition not possible due to incompatible dimensions.\n");
     }
 
-    // Attempt multiplication if dimensions are compatible
+    // Multiplication (if compatible)
     if (c1 == r2) {
-        Term *mulResult;
+        Term* mulResult;
         int mulSize = multiplyCompactMatrices(compactA, sizeA, compactB, sizeB, &mulResult);
         printf("\nResultant Compact Matrix (A x B):\n");
         if (mulSize > 0) {
@@ -188,7 +217,7 @@ int main() {
         printf("\nMultiplication not possible due to incompatible dimensions.\n");
     }
 
-    // Free memory
+    // Cleanup
     freeMatrix(A, r1);
     freeMatrix(B, r2);
     free(compactA);
