@@ -16,8 +16,8 @@ typedef struct Queue {
 } Queue;
 
 // Create new node
-Node* createNode(int value) {
-    Node *newNode = (Node*)malloc(sizeof(Node));
+Node* createLinkedList(int value) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
     if (!newNode) {
         printf("Memory allocation failed.\n");
         exit(1);
@@ -39,7 +39,7 @@ bool isEmpty(Queue* q) {
 
 // Enqueue: Adds a new element to the queue
 void enqueue(Queue* q, int value) {
-    Node* newNode = createNode(value);
+    Node* newNode = createLinkedList(value);
     if (isEmpty(q)) {
         q->front = q->rear = newNode;
     } else {
@@ -57,7 +57,7 @@ int dequeue(Queue* q) {
         return -1;
     }
     Node* temp = q->front;
-    int value = temp-> data;
+    int value = temp->data;
     q->front = q->front->next;
 
     // Make rear NULL in case of NULL front
@@ -73,7 +73,7 @@ int dequeue(Queue* q) {
 
 // Peak: Returns the first element in the queue
 int peek(Queue* q) {
-    if (q->front == NULL) {
+    if (isEmpty(q)) {
         printf("Queue is empty. Nothing to peek.\n");
         return -1;
     }
