@@ -6,7 +6,7 @@ typedef struct {
 } Term;
 
 // Function to convert 2D sparse matrix to compact form
-int convertToCompact(int rows, int cols, int **matrix, Term **compact) {
+int convertToCompact(int rows, int cols, int** matrix, Term** compact) {
     int count = 0;
 
     // Count non-zero elements
@@ -18,7 +18,7 @@ int convertToCompact(int rows, int cols, int **matrix, Term **compact) {
         }
     }
 
-    *compact = (Term *)malloc(count * sizeof(Term));
+    *compact = (Term*)malloc(count * sizeof(Term));
     if (*compact == NULL) {
         printf("Memory allocation failed\n");
         exit(1);
@@ -37,7 +37,7 @@ int convertToCompact(int rows, int cols, int **matrix, Term **compact) {
 }
 
 // Multiply two compact matrices (A × B)
-int multiplyCompactMatrices(Term *a, int sizeA, Term *b, int sizeB, Term **result) {
+int multiplyCompactMatrices(Term* a, int sizeA, Term* b, int sizeB, Term** result) {
     int k = 0;
     *result = NULL;
 
@@ -59,7 +59,7 @@ int multiplyCompactMatrices(Term *a, int sizeA, Term *b, int sizeB, Term **resul
                 }
 
                 if (!found) {
-                    *result = (Term *)realloc(*result, (k + 1) * sizeof(Term));
+                    *result = (Term*)realloc(*result, (k + 1) * sizeof(Term));
                     (*result)[k++] = (Term){r, c, val};
                 }
             }
@@ -70,7 +70,7 @@ int multiplyCompactMatrices(Term *a, int sizeA, Term *b, int sizeB, Term **resul
 }
 
 // Function to print compact matrix
-void printCompactMatrix(Term *compact, int size) {
+void printCompactMatrix(Term* compact, int size) {
     printf("Row\tCol\tValue\n");
     for (int i = 0; i < size; i++) {
         printf("%d\t%d\t%d\n", compact[i].row, compact[i].col, compact[i].value);
@@ -97,9 +97,9 @@ int main() {
     }
 
     // Allocate and input Matrix A
-    int **A = (int **)malloc(r1 * sizeof(int *));
+    int** A = (int**)malloc(r1 * sizeof(int*));
     for (int i = 0; i < r1; i++) {
-        A[i] = (int *)malloc(c1 * sizeof(int));
+        A[i] = (int*)malloc(c1 * sizeof(int));
     }
 
     printf("Enter elements of Matrix A:\n");
@@ -111,9 +111,9 @@ int main() {
     }
 
     // Allocate and input Matrix B
-    int **B = (int **)malloc(r2 * sizeof(int *));
+    int** B = (int**)malloc(r2 * sizeof(int*));
     for (int i = 0; i < r2; i++) {
-        B[i] = (int *)malloc(c2 * sizeof(int));
+        B[i] = (int*)malloc(c2 * sizeof(int));
     }
 
     printf("Enter elements of Matrix B:\n");
