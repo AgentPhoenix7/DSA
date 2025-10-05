@@ -2,12 +2,12 @@
 #include <stdlib.h>
 
 // Define struct for one term in compact matrix
-typedef struct {
+typedef struct Term {
     int row, col, value;
 } Term;
 
 // Function to convert sparse to compact using dynamic array
-int convertToCompact(int rows, int cols, int **matrix, Term **compact) {
+int convertToCompact(int rows, int cols, int** matrix, Term** compact) {
     int count = 0;
 
     // First pass to count non-zero elements
@@ -19,13 +19,13 @@ int convertToCompact(int rows, int cols, int **matrix, Term **compact) {
         }
     }
 
-    *compact = (Term *)malloc(count * sizeof(Term));
+    *compact = (Term*)malloc(count * sizeof(Term));
     if (*compact == NULL) {
         printf("Memory allocation failed!\n");
         exit(1);
     }
 
-    int k = 0;
+    int k = 0; // Counter for non-zero elements in compact matrix
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
             if (matrix[i][j] != 0) {
@@ -41,15 +41,16 @@ int convertToCompact(int rows, int cols, int **matrix, Term **compact) {
 }
 
 // Function to add two compact matrices
-int addCompactMatrices(Term *a, int sizeA, Term *b, int sizeB, Term **result) {
+int addCompactMatrices(Term* a, int sizeA, Term* b, int sizeB, Term** result) {
     int i = 0, j = 0, k = 0;
 
-    *result = (Term *)malloc((sizeA + sizeB) * sizeof(Term));
+    *result = (Term*)malloc((sizeA + sizeB) * sizeof(Term));
     if (*result == NULL) {
         printf("Memory allocation failed!\n");
         exit(1);
     }
 
+    // Merge-like addition
     while (i < sizeA && j < sizeB) {
         if (a[i].row == b[j].row && a[i].col == b[j].col) {
             int sum = a[i].value + b[j].value;
@@ -64,8 +65,13 @@ int addCompactMatrices(Term *a, int sizeA, Term *b, int sizeB, Term **result) {
         }
     }
 
-    while (i < sizeA) (*result)[k++] = a[i++];
-    while (j < sizeB) (*result)[k++] = b[j++];
+    // Copy remaining elements
+    while (i < sizeA) {
+        (*result)[k++] = a[i++];
+    }
+    while (j < sizeB) {
+        (*result)[k++] = b[j++];
+    }
 
     return k;
 }
