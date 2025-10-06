@@ -28,14 +28,14 @@ int isEmpty(Queue* q) {
 
 // Enqueue (insert at rear)
 void enqueue(Queue* q, char ch) {
-    Node* temp = (Node*)malloc(sizeof(Node));
-    temp->data = ch;
-    temp->next = NULL;
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = ch;
+    newNode->next = NULL;
     if (isEmpty(q)) {
-        q->front = q->rear = temp;
+        q->front = q->rear = newNode;
     } else {
-        q->rear->next = temp;
-        q->rear = temp;
+        q->rear->next = newNode;
+        q->rear = newNode;
     }
 }
 
@@ -46,7 +46,7 @@ char dequeue(Queue* q) {
     }
     Node* temp = q->front;
     char ch = temp->data;
-    q->front = q->front->next;
+    q->front = temp->next;
     if (isEmpty(q)) {
         q->rear = NULL;
     }
@@ -63,22 +63,30 @@ int isForm_w_hash_w(char* str) {
     initQueue(&q2);
 
     while (str[i] && str[i] != '#') {
-        if (!isalnum(str[i])) return 0;
+        if (!isalnum(str[i])) {
+            return 0;
+        }
         enqueue(&q1, str[i]);
         i++;
     }
 
-    if (str[i] != '#') return 0;
+    if (str[i] != '#') {
+        return 0;
+    }
     i++;
 
     while (str[i]) {
-        if (!isalnum(str[i])) return 0;
+        if (!isalnum(str[i])) {
+            return 0;
+        }
         enqueue(&q2, str[i]);
         i++;
     }
 
     while (!isEmpty(&q1) && !isEmpty(&q2)) {
-        if (dequeue(&q1) != dequeue(&q2)) return 0;
+        if (dequeue(&q1) != dequeue(&q2)) {
+            return 0;
+        }
     }
 
     return isEmpty(&q1) && isEmpty(&q2);
