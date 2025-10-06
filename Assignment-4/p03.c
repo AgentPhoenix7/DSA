@@ -9,54 +9,79 @@ typedef struct Node {
     struct Node* next;
 } Node;
 
-Node* push(Node* top, int value) {
+// Stack structure
+typedef struct Stack{
+    Node* top;
+} Stack;
+
+// Initialize stack
+void initStack(Stack* stack) {
+    stack->top = NULL;
+}
+
+// Check if stack is empty
+int isEmpty(Stack* stack) {
+    return stack->top == NULL;
+}
+
+// Push value onto stack
+void push(Stack* stack, int value) {
     Node* newNode = malloc(sizeof(Node));
     if (!newNode) {
         printf("Error: Memory allocation failed.\n");
         exit(1);
     }
     newNode->data = value;
-    newNode->next = top;
-    return newNode;
+    newNode->next = stack->top;
+    stack->top = newNode;
 }
 
-Node* pop(Node* top, int* poppedValue) {
-    if (top == NULL) {
-        printf("Error: Stack underflow.\n");
-        exit(1);
+// Pop value from stack
+int pop(Stack* stack, int* poppedValue) {
+    if (isEmpty(stack)) {
+        return 0; // Error: Stack underflow
     }
-    *poppedValue = top->data;
-    Node* temp = top;
-    top = top->next;
+    Node* temp = stack->top;
+    *poppedValue = temp->data;
+    stack->top = temp->next;
     free(temp);
-    return top;
+    return 1;
 }
+
+// Free entire stack (clean-up)
+void freeStack(Stack* stack) {
+    int temp;
+    while (pop(stack, &temp))
+        ;
+}
+
+// -------- Expression Evaluation --------
 
 int isOperator(char* token) {
-    return (strcmp(token, "+") == 0 || strcmp(token, "-") == 0 || strcmp(token, "*") == 0 || strcmp(token, "/") == 0);
+    return (strcmp(token, "+") == 0 ||
+            strcmp(token, "-") == 0 ||
+            strcmp(token, "*") == 0 ||
+            strcmp(token, "/") == 0);
 }
 
 int performOperation(char* operator, int op1, int op2) {
     if (strcmp(operator, "+") == 0) {
         return op1 + op2;
-    }
-    if (strcmp(operator, "-") == 0) {
+    } else if (strcmp(operator, "-") == 0) {
         return op1 - op2;
-    }
-    if (strcmp(operator, "*") == 0) {
+    } else if (strcmp(operator, "*") == 0) {
         return op1 * op2;
-    }
-    if (strcmp(operator, "/") == 0) {
+    } else if (strcmp(operator, "/") == 0) {
         if (op2 == 0) {
             printf("Error: Division by zero.\n");
             exit(1);
         }
         return op1 / op2;
     }
-    return 0; // Should not reach here
+    return 0; // Should never reach here
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
     const char* filename;
 
     // Use default filename if not provided
@@ -77,9 +102,9 @@ int main(int argc, char* argv[]) {
     int lineNumber = 1;
 
     while (fgets(line, sizeof(line), fp)) {
-        // Skip empty lines
-        if (strlen(line) <= 1) continue;
-
+        if (strlen(line) <= 1) {
+            continue; // Skip empty lines
+        }
         // Tokenize the line
         char* tokens[MAX_TOKENS];
         int count = 0;
@@ -89,49 +114,45 @@ int main(int argc, char* argv[]) {
             token = strtok(NULL, " \n");
         }
 
-        // Evaluate from right to left
-        Node* stack = NULL;
+        // Initialize a new stack for each line
+        Stack stack;
+        initStack(&stack);
         int error = 0;
 
+        // Evaluate from right to left
         for (int i = count - 1; i >= 0; i--) {
             if (isOperator(tokens[i])) {
                 int operand1, operand2;
-                if (!stack) {
+
+                if (!pop(&stack, &operand1) || !pop(&stack, &operand2)) {
                     error = 1;
                     break;
                 }
-                stack = pop(stack, &operand1);
-                if (!stack) {
-                    error = 1;
-                    break;
-                }
-                stack = pop(stack, &operand2);
+
                 int result = performOperation(tokens[i], operand1, operand2);
-                stack = push(stack, result);
+                push(&stack, result);
             } else {
-                stack = push(stack, atoi(tokens[i]));
+                push(&stack, atoi(tokens[i]));
             }
         }
 
-        if (error || !stack) {
+        if (error || isEmpty(&stack)) {
             printf("Line %d: Error evaluating expression.\n", lineNumber);
+            freeStack(&stack);
             lineNumber++;
             continue;
         }
 
         int finalResult;
-        stack = pop(stack, &finalResult);
-        if (stack != NULL) {
+        pop(&stack, &finalResult);
+
+        if (!isEmpty(&stack)) {
             printf("Line %d: Error: Invalid expression (extra operands).\n", lineNumber);
-            // Clean up remaining stack
-            while (stack != NULL) {
-                int temp;
-                stack = pop(stack, &temp);
-            }
         } else {
             printf("Line %d Result: %d\n", lineNumber, finalResult);
         }
 
+        freeStack(&stack);
         lineNumber++;
     }
 
