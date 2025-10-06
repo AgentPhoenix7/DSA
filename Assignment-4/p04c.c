@@ -25,14 +25,14 @@ int isEmpty(Queue* q) {
 
 // Enqueue character
 void enqueue(Queue* q, char ch) {
-    Node* temp = (Node*)malloc(sizeof(Node));
-    temp->data = ch;
-    temp->next = NULL;
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = ch;
+    newNode->next = NULL;
     if (isEmpty(q)) {
-        q->front = q->rear = temp;
+        q->front = q->rear = newNode;
     } else {
-        q->rear->next = temp;
-        q->rear = temp;
+        q->rear->next = newNode;
+        q->rear = newNode;
     }
 }
 
@@ -59,7 +59,9 @@ int isForm_w_hash_reverse_w(char* str) {
 
     // Step 1: enqueue all characters before '#'
     while (str[i] && str[i] != '#') {
-        if (!isalnum(str[i])) return 0;  // invalid char
+        if (!isalnum(str[i])) {
+            return 0;  // invalid char
+        }
         enqueue(&q, str[i]);
         i++;
     }
