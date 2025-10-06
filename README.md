@@ -28,6 +28,7 @@ DSA/
 ├── Assignment-2/   # Linked Lists – Insert/Delete, Middle, nth from End
 ├── Assignment-3/   # Stacks, Queues, Sparse Matrix
 ├── Assignment-4/   # Stack & Queue Applications
+├── Assignment-5/   # Trees – Binary Tree Traversals, BST Operations, Height, Leaf Count
 └── README.md
 ```
 
@@ -35,10 +36,11 @@ DSA/
 
 ## 🚀 Quick Navigation
 
-- [Assignment 1 – Arrays](./Assignment-1/README.md)  
-- [Assignment 2 – Linked Lists](./Assignment-2/README.md)  
-- [Assignment 3 – Stack, Queue, Sparse Matrix](./Assignment-3/README.md)  
-- [Assignment 4 – Stack & Queue Applications](./Assignment-4/README.md)  
+- [Assignment 1 – Arrays](./Assignment-1/README.md)
+- [Assignment 2 – Linked Lists](./Assignment-2/README.md)
+- [Assignment 3 – Stack, Queue, Sparse Matrix](./Assignment-3/README.md)
+- [Assignment 4 – Stack & Queue Applications](./Assignment-4/README.md)
+- [Assignment 5 – Trees (Binary Tree Traversals, BST Operations, Height, Leaf Count)](./Assignment-5/README.md)
 
 ---
 
@@ -64,6 +66,7 @@ gcc p01.c -o p01
 | Assignment 2 | ✅ Completed | Linked Lists – Insert/Delete, Middle, nth from End                               |
 | Assignment 3 | ✅ Completed | Stack (Array + Linked List), Queue, Sparse Matrix Ops                            |
 | Assignment 4 | ✅ Completed | Prime Divisors, Balanced Parentheses, Polish Notation, Queue-based String Checks |
+| Assignment 5 | 🚧 In Progress | Trees – Binary Tree Traversals (Inorder, Preorder, Postorder), BST Insert/Delete/Search, Height, Leaf Count |
 
 ---
 
