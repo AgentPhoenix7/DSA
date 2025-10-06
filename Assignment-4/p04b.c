@@ -28,14 +28,14 @@ int isEmpty(Queue* q) {
 
 // Enqueue (insert at rear)
 void enqueue(Queue* q, char ch) {
-    Node* temp = (Node*)malloc(sizeof(Node));
-    temp->data = ch;
-    temp->next = NULL;
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = ch;
+    newNode->next = NULL;
     if (isEmpty(q)) {
-        q->front = q->rear = temp;
+        q->front = q->rear = newNode;
     } else {
-        q->rear->next = temp;
-        q->rear = temp;
+        q->rear->next = newNode;
+        q->rear = newNode;
     }
 }
 
@@ -57,27 +57,33 @@ char dequeue(Queue* q) {
 // Problem (b)
 // ww
 int isForm_ww(char* str) {
-    int len = strlen(str);
+    int len = strlen(str); // length of the string
     if (len % 2 != 0) {
         return 0;
     }
-    int mid = len / 2;
+    int mid = len / 2; // midpoint
     Queue q1, q2;
     initQueue(&q1);
     initQueue(&q2);
 
     for (int i = 0; i < mid; i++) {
-        if (!isalnum(str[i])) return 0;
+        if (!isalnum(str[i])) {
+            return 0;
+        }
         enqueue(&q1, str[i]);
     }
 
     for (int i = mid; i < len; i++) {
-        if (!isalnum(str[i])) return 0;
+        if (!isalnum(str[i])) {
+            return 0;
+        }
         enqueue(&q2, str[i]);
     }
 
     while (!isEmpty(&q1) && !isEmpty(&q2)) {
-        if (dequeue(&q1) != dequeue(&q2)) return 0;
+        if (dequeue(&q1) != dequeue(&q2)) {
+            return 0;
+        }
     }
 
     return isEmpty(&q1) && isEmpty(&q2);
