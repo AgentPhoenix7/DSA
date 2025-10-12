@@ -161,17 +161,17 @@ void inputMenu() {
 
     while (1) {
         printf("\n===== INPUT MENU =====\n");
-        printf("1. Use default file (input.txt)\n");
+        printf("1. Use default file (p02.txt)\n");
         printf("2. Enter custom file name\n");
         printf("3. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
-        const char* filenameToUse = "input.txt";
+        const char* filenameToUse = "p02.txt";
 
         switch (choice) {
             case 1:
-                filenameToUse = "input.txt";
+                filenameToUse = "p02.txt";
                 break;
 
             case 2:

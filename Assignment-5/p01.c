@@ -142,9 +142,9 @@ void printTreeByLevels(Node* root) {
 int main(int argc, char* argv[]) {
     const char* filename;
 
-    // Use input.txt by default if not specified
+    // Use p01.txt by default if not specified
     if (argc == 1) {
-        filename = "input.txt";
+        filename = "p01.txt";
         printf("No input file specified. Using default: %s\n", filename);
     } else if (argc == 2) {
         filename = argv[1];
