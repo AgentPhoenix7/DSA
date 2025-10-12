@@ -66,7 +66,7 @@ gcc p01.c -o p01
 | Assignment 2 | ✅ Completed | Linked Lists – Insert/Delete, Middle, nth from End                               |
 | Assignment 3 | ✅ Completed | Stack (Array + Linked List), Queue, Sparse Matrix Ops                            |
 | Assignment 4 | ✅ Completed | Prime Divisors, Balanced Parentheses, Polish Notation, Queue-based String Checks |
-| Assignment 5 | 🚧 In Progress | Trees – Binary Tree Traversals (Inorder, Preorder, Postorder), BST Insert/Delete/Search, Height, Leaf Count |
+| Assignment 5 | ✅ Completed | Trees – Binary Tree Traversals (Inorder, Preorder, Postorder), BST Insert/Delete/Search, Height, Leaf Count |
 
 ---
 
