@@ -11,7 +11,7 @@ typedef struct Stack {
 } Stack;
 
 // Function to create a new node
-Node* createNode(int value) {
+Node* createLinkedList(int value) {
     Node* newNode = (Node*)malloc(sizeof(Node));
     if (!newNode) {
         printf("Memory allocation failed\n");
@@ -29,7 +29,7 @@ void initStack(Stack* stack) {
 
 // Push operation
 void push(Stack* stack, int value) {
-    Node* newNode = createNode(value);
+    Node* newNode = createLinkedList(value);
     newNode->next = stack->top;
     stack->top = newNode;
 }
